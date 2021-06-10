@@ -286,7 +286,6 @@ class Maze:
     def a_star(self):
         # create the PriorityQueue and the closed list and start A*
         open = PriorityQueue()
-        closed = PriorityQueue()
 
         # put the start node in pq
         open.enqueue({'state': self.entrance,
@@ -299,7 +298,6 @@ class Maze:
         while len(open.queue) > 0:
             # pop the first element and add it to closed if it is not visited or it has a lower f than the old one
             s = open.pop()
-            closed.enqueue(s)
 
             # mark current square visited
             self.maze[s['state'][0]][s['state'][1]] = 'v'
@@ -326,8 +324,6 @@ class Maze:
             # finally add all the succs to the priority queue if they're not on open or closed
             for state in self.succ(s['state']):
                 # if new state is not already on open or closed add it to open
-                if closed.contains(state):
-                    continue
 
                 # calculate heruistics and add it to the open queue
                 new_h = self.h(state)
